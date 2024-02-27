@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <div id="board" class="board">
+            <!-- Game board cells will be generated here -->
+        </div>
+        <div id="message" class="message" title="Hover for game rules">Click on a cell to make your move.</div>
+        <button id="restartBtn" title="Hover to restart game">Restart Game</button>
+    </div>
+
+    <script>function handleMove(index) {
+    if (isGameOver || boardState[index] !== '') return;
+
+    // Update board state
+    boardState[index] = currentPlayer;
+
+    // Update UI
+    render();
+
+    // Check for winner
+    const winner = checkWinner();
+    if (winner) {
+        if (winner === 'T') {
+            message.textContent = `It's a draw!`;
+        } else {
+            message.textContent = `Player ${winner} wins!`;
+        }
+        isGameOver = true;
+        return;
+    }
+
+    // Switch player
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    message.textContent = `Player ${currentPlayer}'s turn`;
+
+    // If it's computer's turn, make its move
+    if (currentPlayer === 'O' && !isGameOver) {
+        setTimeout(computerMove, 500); // Add a slight delay for better visualization
+    }
+}
+</script>
+</body>
+</html>
